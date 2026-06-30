@@ -1,0 +1,408 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poojitha Yarava | Portfolio</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --surface: rgba(17, 32, 60, 0.95);
+      --surface-alt: rgba(23, 38, 70, 0.92);
+      --text: #eef2ff;
+      --muted: #9fb5d6;
+      --accent: #63b3ed;
+      --accent-strong: #90cdf4;
+      --border: rgba(255,255,255,0.14);
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color-scheme: dark;
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(99,179,237,0.16), transparent 22%),
+                  radial-gradient(circle at bottom right, rgba(129,140,248,0.1), transparent 20%),
+                  linear-gradient(180deg, #07101f 0%, #0b1324 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at 20% 10%, rgba(99,179,237,0.12), transparent 18%),
+                  radial-gradient(circle at 80% 10%, rgba(144,205,244,0.08), transparent 18%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1080px; margin: 0 auto; padding: 32px 24px 48px; }
+    .site-nav { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; margin-bottom: 24px; }
+    .brand { font-size: 0.9rem; color: var(--muted); letter-spacing: 0.24em; text-transform: uppercase; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 12px; }
+    .nav-links a { font-size: 0.94rem; color: var(--muted); padding: 10px 14px; border-radius: 999px; transition: background 0.18s ease, color 0.18s ease; }
+    .nav-links a:hover { background: rgba(99,179,237,0.12); color: var(--accent-strong); }
+    .hero { display: grid; gap: 26px; padding: 26px 0; }
+    section { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 32px; padding: 36px 32px; margin-bottom: 28px; position: relative; }
+    section:not(.hero) { box-shadow: 0 18px 45px rgba(0,0,0,0.14); }
+    .section-title { display: inline-block; margin-bottom: 14px; position: relative; }
+    .section-title::after { content: ''; display: block; width: 100px; height: 3px; margin-top: 12px; border-radius: 999px; background: rgba(99,179,237,0.65); }
+    .section-note { color: var(--muted); margin-bottom: 26px; max-width: 760px; position: relative; padding-left: 16px; }
+    .section-note::before { content: ''; position: absolute; left: 0; top: 8px; width: 4px; height: calc(100% - 16px); background: linear-gradient(180deg, rgba(99,179,237,0.85), rgba(144,205,244,0.25)); border-radius: 999px; }
+    .hero-top { display: grid; grid-template-columns: minmax(0, 1.35fr) 280px; gap: 24px; align-items: center; }
+    .eyebrow { margin: 0 0 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); font-size: 0.82rem; }
+    .hero-title { margin: 0; font-size: clamp(3.1rem, 6vw, 5rem); line-height: 0.96; letter-spacing: -0.04em; }
+    .hero-title span { color: var(--accent-strong); }
+    .hero-text { margin: 18px 0 0; max-width: 700px; color: var(--muted); font-size: 1rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; border-radius: 999px; border: 1px solid transparent; background: var(--accent); color: #0b1324; font-weight: 600; transition: transform 0.16s ease, background 0.16s ease; }
+    .button.secondary { background: transparent; color: var(--text); border-color: rgba(255,255,255,0.16); }
+    .button:hover { transform: translateY(-2px); }
+    .hero-badge { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; background: rgba(99,179,237,0.14); border: 1px solid rgba(99,179,237,0.2); border-radius: 999px; color: var(--accent-strong); margin-top: 10px; }
+    .profile-card { background: var(--surface); border: 1px solid var(--border); border-radius: 32px; padding: 24px; display: grid; gap: 18px; text-align: center; }
+    .profile-card h3 { margin: 0; color: var(--accent-strong); }
+    .profile-avatar { width: 220px; height: 260px; margin: 0 auto; border-radius: 30px; border: 1px dashed rgba(255,255,255,0.18); display: grid; place-items: center; overflow: hidden; background: rgba(255,255,255,0.04); transition: transform 0.28s ease, box-shadow 0.28s ease; }
+    .profile-avatar:hover { transform: translateY(-3px); box-shadow: 0 24px 65px rgba(0,0,0,0.22); }
+    .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .profile-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .section-title { font-size: clamp(2rem, 3vw, 2.6rem); margin-bottom: 14px; }
+    .section-note { color: var(--muted); margin-bottom: 26px; max-width: 760px; }
+    .cards-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .card { position: relative; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 28px; padding: 26px; box-shadow: 0 20px 45px rgba(0,0,0,0.12); transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease; overflow: hidden; }
+    .card::before { content: ''; position: absolute; top: -18px; right: -30px; width: 130px; height: 130px; background: radial-gradient(circle, rgba(99,179,237,0.24), transparent 56%); border-radius: 50%; pointer-events: none; }
+    .card::after { content: ''; position: absolute; bottom: -12px; left: -10px; width: 88px; height: 88px; background: radial-gradient(circle, rgba(144,205,244,0.16), transparent 55%); border-radius: 50%; pointer-events: none; }
+    .card:hover { transform: translateY(-4px); border-color: rgba(99,179,237,0.22); background: rgba(255,255,255,0.06); }
+    .project-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+    .project-img { width: 84px; height: 84px; padding: 10px; display: grid; place-items: center; border-radius: 24px; background: linear-gradient(135deg, rgba(99,179,237,0.22), rgba(255,255,255,0.12)); box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 14px 30px rgba(0,0,0,0.12); overflow: hidden; }
+    .project-img img { width: auto; height: 100%; max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+    .project-img span { color: #eaf4ff; font-size: 1.8rem; }
+    .card h3 { margin: 0; font-size: 1.35rem; background: linear-gradient(90deg, #7ac7ff, #d5a2ff); -webkit-background-clip: text; color: transparent; }
+    .card h3::after { content: ''; display: block; width: 60px; height: 4px; margin-top: 10px; border-radius: 999px; background: linear-gradient(90deg, #63b3ed, #90cdf4); }
+    .card p { margin: 0; color: var(--muted); }
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+    .tag { padding: 8px 12px; border-radius: 999px; font-size: 0.85rem; background: rgba(99,179,237,0.14); color: #eaf4ff; }
+    .project-meta { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin-top: 18px; color: var(--muted); font-size: 0.95rem; }
+    .project-meta a { color: var(--accent); }
+    .contact-grid { display: grid; gap: 16px; margin-top: 20px; }
+    .contact-card { display: flex; align-items: center; gap: 16px; padding: 20px; border-radius: 24px; background: rgba(99,179,237,0.08); border: 1px solid rgba(99,179,237,0.18); transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease; }
+    .contact-card:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(0,0,0,0.18); background: rgba(99,179,237,0.14); }
+    .contact-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 16px; background: rgba(255,255,255,0.08); color: var(--accent-strong); font-size: 1.3rem; }
+    .contact-info { display: grid; gap: 4px; }
+    .contact-info strong { color: var(--text); font-size: 1rem; }
+    .contact-info a { color: var(--accent); transition: color 0.2s ease; }
+    .contact-info a:hover { color: #c3e0ff; }
+    .contact-meta { color: var(--muted); font-size: 0.94rem; }
+    .filter-panel { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+    .tab-button { padding: 10px 18px; border-radius: 999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); color: var(--text); cursor: pointer; transition: transform 0.15s ease, background 0.15s ease; }
+    .tab-button:hover { transform: translateY(-1px); }
+    .tab-button.active { background: rgba(99,179,237,0.18); border-color: rgba(99,179,237,0.3); }
+    .footer { padding-top: 24px; text-align: center; color: var(--muted); }
+    .hidden { display: none !important; }
+    input[type="file"] { display: none; }
+    @media (max-width: 920px) {
+      .hero-top { grid-template-columns: 1fr; }
+      .page { padding: 24px 18px 38px; }
+    }
+    @media (max-width: 620px) {
+      .hero-title { font-size: 2.8rem; }
+      .hero-actions { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <nav class="site-nav">
+      <span class="brand">poojithayarava</span>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#education">Education</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div class="hero-top">
+        <div>
+          <p class="eyebrow">Data Analyst & Full Stack Developer</p>
+          <h1 class="hero-title"><span>Poojitha Yarava</span></h1>
+          <p class="hero-text">Building modern web applications, data analysis workflows, and cloud deployments with a focus on clean interfaces and reliable automation.</p>
+          <div class="hero-actions">
+            <a class="button" href="https://github.com/PoojithaYarava" target="_blank">View GitHub</a>
+            <a class="button secondary" href="#contact">Say Hello</a>
+          </div>
+          <div class="hero-badge">Open to opportunities • Full-Stack | Data | DevOps</div>
+        </div>
+
+        <div class="profile-card">
+          <h3>Profile Photo</h3>
+          <div class="profile-avatar" id="topPhotoPreview">
+            <span>Upload your passport photo below to preview it here.</span>
+          </div>
+          <div class="profile-actions">
+            <label class="button secondary" for="photoInput">Upload Photo</label>
+          </div>
+          <input type="file" id="photoInput" accept="image/*">
+        </div>
+      </div>
+      <p class="section-note">Interactive portfolio inspired by one-page developer sites, designed to highlight your name, skills, projects, and contact information clearly.</p>
+    </section>
+
+    <section id="about">
+      <h2 class="section-title">About Me</h2>
+      <p class="section-note">I am a Computer Science undergraduate passionate about solving complex problems through modern web development, cloud automation, and analytics. I build polished applications and data workflows that deliver real business value.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <h3>Who I Am</h3>
+          <p>Undergraduate developer focused on full-stack systems, DevOps automation, and data analytics. I enjoy creating tools that are easy to use and simple to maintain.</p>
+        </div>
+        <div class="card">
+          <h3>What I Build</h3>
+          <p>Responsive web applications, API-driven services, analytics pipelines, and cloud-deployed workflows with strong user experience and reliability.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <h2 class="section-title">Skills & Technologies</h2>
+      <p class="section-note">A mix of data analysis, full-stack, and cloud skills that support end-to-end project delivery.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <h3>Full Stack Development</h3>
+          <p>React, JavaScript, Node.js, Express, MongoDB, Tailwind CSS</p>
+          <div class="tag-list">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Express</span>
+            <span class="tag">MongoDB</span>
+            <span class="tag">Tailwind</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Data Analysis</h3>
+          <p>Python, Pandas, NumPy, SQL, Jupyter, ETL, data visualization</p>
+          <div class="tag-list">
+            <span class="tag">Python</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Jupyter</span>
+            <span class="tag">Data Viz</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>DevOps & Cloud</h3>
+          <p>Docker, AWS, Vercel, Render, CI/CD, GitHub, Linux</p>
+          <div class="tag-list">
+            <span class="tag">Docker</span>
+            <span class="tag">AWS</span>
+            <span class="tag">CI/CD</span>
+            <span class="tag">Vercel</span>
+            <span class="tag">Git</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <h2 class="section-title">Featured Projects</h2>
+      <p class="section-note">Browse projects by category to see both full-stack and data-driven work.</p>
+      <div class="filter-panel">
+        <button class="tab-button active" data-filter="all">All</button>
+        <button class="tab-button" data-filter="fullstack">Full Stack</button>
+        <button class="tab-button" data-filter="data">Data Analysis</button>
+        <button class="tab-button" data-filter="business">Business Collaboration</button>
+        <button class="tab-button" data-filter="internship">Internship</button>
+      </div>
+      <div class="cards-grid" id="projectsGrid">
+        <article class="card project-card" data-category="fullstack">
+          <div class="project-header">
+            <h3 class="project-title">MediConnect Healthcare Appointment System</h3>
+            <div class="project-img">
+              <img src="project_logos/mediconnect-logo.png" alt="MediConnect logo">
+            </div>
+          </div>
+          <p>A full-stack healthcare booking platform with patient registration, doctor listings, lab booking, appointment management, and admin dashboards.</p>
+          <div class="project-meta">
+            <span>React • Node.js • Express • MongoDB</span>
+            <a href="https://github.com/PoojithaYarava/healthcare-appointment-system" target="_blank">View Repo</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Cloudinary</span>
+            <span class="tag">Vercel</span>
+            <span class="tag">User workflows</span>
+          </div>
+        </article>
+        <article class="card project-card" data-category="fullstack">
+          <div class="project-header">
+            <h3 class="project-title">GrowWell – Farmers Companion</h3>
+            <div class="project-img">
+              <img src="project_logos/growwell-logo.png" alt="GrowWell logo">
+            </div>
+          </div>
+          <p>A farmer guidance website with fertilizer recommendations, community content, and login/register flow backed by a local backend.</p>
+          <div class="project-meta">
+            <span>HTML • JavaScript • CSS • Node.js</span>
+            <a href="https://github.com/PoojithaYarava/grow_well-farmers-companion" target="_blank">View Repo</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Responsive UI</span>
+            <span class="tag">Community</span>
+            <span class="tag">Domain fit</span>
+          </div>
+        </article>
+        <article class="card project-card" data-category="business">
+          <div class="project-header">
+            <h3 class="project-title">Varnan Through Crochet</h3>
+            <div class="project-img">
+              <img src="project_logos/varnan-logo.png" alt="Varnan logo">
+            </div>
+          </div>
+          <p>A handmade business website focused on product presentation, branding, and online storefront design.</p>
+          <div class="project-meta">
+            <span>JavaScript • Web Design • Client Delivery</span>
+            <a href="https://github.com/PoojithaYarava/varnan" target="_blank">View Repo</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Branding</span>
+            <span class="tag">UX</span>
+            <span class="tag">Client work</span>
+          </div>
+        </article>
+        <article class="card project-card" data-category="data">
+          <div class="project-header">
+            <h3 class="project-title">Retail Sales Analytics</h3>
+            <div class="project-img">
+              <span>📈</span>
+            </div>
+          </div>
+          <p>A retail analytics workflow that cleans sales data, explores revenue and profit trends, and delivers SQL-backed data insights.</p>
+          <div class="project-meta">
+            <span>Python • SQL • Jupyter • Data Visualization</span>
+            <a href="https://github.com/PoojithaYarava/data-analysis-python-sql" target="_blank">View Repo</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Data cleaning</span>
+            <span class="tag">SQL analysis</span>
+            <span class="tag">Insights</span>
+          </div>
+        </article>
+        <article class="card project-card" data-category="internship">
+          <div class="project-header">
+            <h3 class="project-title">BlueStock Mutual Fund Analytics</h3>
+            <div class="project-img">
+              <span>💼</span>
+            </div>
+          </div>
+          <p>An internship-style analytics project built to help stakeholders track fund performance, automate reporting, and produce decision-ready business insights.</p>
+          <div class="project-meta">
+            <span>Python • SQLite • ETL • Reporting</span>
+            <a href="https://github.com/PoojithaYarava/mutual-fund-analytics" target="_blank">View Repo</a>
+          </div>
+          <div class="tag-list">
+            <span class="tag">Internship</span>
+            <span class="tag">Analytics</span>
+            <span class="tag">Reporting</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2 class="section-title">Education & Background</h2>
+      <p class="section-note">Current academic focus and essential tools used to build real solutions.</p>
+      <div class="cards-grid">
+        <div class="card">
+          <h3>B.Tech in Computer Science</h3>
+          <p>Undergraduate student focused on software development, cloud deployment, and data analytics. Expected graduation 2027.</p>
+          <div class="project-meta">
+            <span>Computer Science</span>
+            <span>2023 — 2027</span>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Tools I Use</h3>
+          <div class="tag-list">
+            <span class="tag">React</span>
+            <span class="tag">Node.js</span>
+            <span class="tag">Python</span>
+            <span class="tag">Pandas</span>
+            <span class="tag">NumPy</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Git</span>
+            <span class="tag">Docker</span>
+            <span class="tag">AWS</span>
+            <span class="tag">GitHub Actions</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Let’s Connect</h2>
+      <p class="section-note">I’m open to internships, full-stack roles, data analytics projects, and DevOps collaborations. Reach out if you’d like to work together.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <span class="contact-icon">✉️</span>
+          <div class="contact-info">
+            <strong>Email</strong>
+            <a href="mailto:yaravapoojitha@gmail.com">yaravapoojitha@gmail.com</a>
+            <span class="contact-meta">Fast response for project opportunities and collaboration inquiries.</span>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon">💼</span>
+          <div class="contact-info">
+            <strong>GitHub</strong>
+            <a href="https://github.com/PoojithaYarava" target="_blank">github.com/PoojithaYarava</a>
+            <span class="contact-meta">Explore live code, active projects, and development progress.</span>
+          </div>
+        </div>
+        <div class="contact-card">
+          <span class="contact-icon">🔗</span>
+          <div class="contact-info">
+            <strong>LinkedIn</strong>
+            <a href="https://linkedin.com/in/poojithayarava" target="_blank">linkedin.com/in/poojithayarava</a>
+            <span class="contact-meta">Professional profile with experience, education, and networking details.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>Designed & built by Poojitha Yarava · 2026</p>
+    </footer>
+  </div>
+  <script>
+    const buttons = document.querySelectorAll('.tab-button');
+    const projectCards = document.querySelectorAll('.project-card');
+    const photoInput = document.getElementById('photoInput');
+    const topPhotoPreview = document.getElementById('topPhotoPreview');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        buttons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+
+        projectCards.forEach(card => {
+          card.classList.toggle('hidden', filter !== 'all' && card.dataset.category !== filter);
+        });
+      });
+    });
+
+    photoInput.addEventListener('change', () => {
+      const file = photoInput.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        topPhotoPreview.innerHTML = `<img src="${reader.result}" alt="Profile photo">`;
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+</body>
+</html>

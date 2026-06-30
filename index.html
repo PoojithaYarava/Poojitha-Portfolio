@@ -67,7 +67,8 @@
     .profile-avatar { width: 220px; height: 260px; margin: 0 auto; border-radius: 30px; border: 1px dashed rgba(255,255,255,0.18); display: grid; place-items: center; overflow: hidden; background: rgba(255,255,255,0.04); transition: transform 0.28s ease, box-shadow 0.28s ease; }
     .profile-avatar:hover { transform: translateY(-3px); box-shadow: 0 24px 65px rgba(0,0,0,0.22); }
     .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
-    .profile-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .profile-placeholder { display: grid; place-items: center; padding: 12px; text-align: center; color: var(--muted); font-size: 0.95rem; }
+    .profile-placeholder.hidden { display: none; }
     .section-title { font-size: clamp(2rem, 3vw, 2.6rem); margin-bottom: 14px; }
     .section-note { color: var(--muted); margin-bottom: 26px; max-width: 760px; }
     .cards-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
@@ -141,12 +142,9 @@
         <div class="profile-card">
           <h3>Profile Photo</h3>
           <div class="profile-avatar" id="topPhotoPreview">
-            <span>Upload your passport photo below to preview it here.</span>
+            <img id="profileImage" src="profile-photo.jpg" alt="Profile photo">
+            <span id="profilePlaceholder" class="profile-placeholder">Place your photo in the project folder as profile-photo.jpg or profile-photo.png.</span>
           </div>
-          <div class="profile-actions">
-            <label class="button secondary" for="photoInput">Upload Photo</label>
-          </div>
-          <input type="file" id="photoInput" accept="image/*">
         </div>
       </div>
       <p class="section-note">Interactive portfolio inspired by one-page developer sites, designed to highlight your name, skills, projects, and contact information clearly.</p>
@@ -379,8 +377,25 @@
   <script>
     const buttons = document.querySelectorAll('.tab-button');
     const projectCards = document.querySelectorAll('.project-card');
-    const photoInput = document.getElementById('photoInput');
-    const topPhotoPreview = document.getElementById('topPhotoPreview');
+    const profileImage = document.getElementById('profileImage');
+    const profilePlaceholder = document.getElementById('profilePlaceholder');
+    const profileCandidates = ['profile-photo.jpg', 'profile-photo.png', 'profile.jpg', 'profile.png'];
+    let profileIndex = 0;
+
+    function tryProfileImage() {
+      if (profileIndex >= profileCandidates.length) {
+        profilePlaceholder.classList.remove('hidden');
+        return;
+      }
+      profileImage.src = profileCandidates[profileIndex++];
+    }
+
+    profileImage.addEventListener('load', () => {
+      profilePlaceholder.classList.add('hidden');
+    });
+
+    profileImage.addEventListener('error', tryProfileImage);
+    tryProfileImage();
 
     buttons.forEach(button => {
       button.addEventListener('click', () => {
@@ -394,15 +409,6 @@
       });
     });
 
-    photoInput.addEventListener('change', () => {
-      const file = photoInput.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = () => {
-        topPhotoPreview.innerHTML = `<img src="${reader.result}" alt="Profile photo">`;
-      };
-      reader.readAsDataURL(file);
-    });
   </script>
 </body>
 </html>
